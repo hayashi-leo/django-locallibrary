@@ -13,9 +13,20 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url
+from django.conf.urls import url, include
 from django.contrib import admin
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
 ]
+
+
+# Use include() to add paths from the catalog application
+# now, if you are including 'app.urls' do not terminate
+# regex search with '$' symbol because it will produce an error!!!
+from django.conf.urls import include
+urlpatterns += [
+    url(r'^', include('catalog.urls')),
+    url(r'catalog/', include('catalog.urls')),
+]
+
